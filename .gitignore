@@ -1,0 +1,9 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# Ignorar carpetas .idea en toda la estructura del proyecto
+.idea/
+
+# Ignorar archivos .iml en toda la estructura del proyecto
+*.iml

@@ -7,3 +7,6 @@
 
 # Ignorar archivos .iml en toda la estructura del proyecto
 *.iml
+
+# Ignorar carpeta out
+out/

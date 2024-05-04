@@ -1,14 +1,14 @@
-package Practicos.TP_1;
+package Practicos.TP_1.clases;
 
 //Ejercicio 26
 public class VariableFinal {
     private static final int num = 3;
 
-    public static void main(String[] args) {
+    public void imprimir(String[] args) {
         displayValue();
     }
 
-    private static void displayValue(){
+    private void displayValue(){
         System.out.println(num);
     }
 }

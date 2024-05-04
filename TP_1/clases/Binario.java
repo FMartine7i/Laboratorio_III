@@ -1,9 +1,8 @@
-package Practicos.TP_1;
+package Practicos.TP_1.clases;
 
 //Ejercicio 16
 public class Binario {
-    
-    public static void main(String[] args) {
+    public static void convertirABinario(String[] args) {
     
         if(args.length != 1)
             System.out.println("Error: No se ingresaron los parametros correctamente");

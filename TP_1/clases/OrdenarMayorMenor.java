@@ -1,7 +1,7 @@
-package Practicos.TP_1;
+package Practicos.TP_1.clases;
 
 public class OrdenarMayorMenor {
-    public static void main(String[] args) {
+    public static void imprimirOrden(String[] args) {
         int[] numeros = new int[args.length];
 
         if (args.length == 0)

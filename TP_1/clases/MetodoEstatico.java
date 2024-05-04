@@ -1,11 +1,11 @@
-package Practicos.TP_1;
+package Practicos.TP_1.clases;
 
 //Ejercicio 25
 public class MetodoEstatico {
-    public static void main(String[] args) {
+    public static void imprimir(String[] args) {
 
         if(args.length != 2)
-            System.out.println("Error: No se ingresaron los parametros correctamente");
+            System.out.println("Error: Deben ingresarse dos argumentos");
         else{
             int a = Integer.parseInt(args[0]);
             int b = Integer.parseInt(args[1]);

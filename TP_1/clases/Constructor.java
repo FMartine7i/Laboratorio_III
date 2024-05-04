@@ -1,4 +1,4 @@
-package Practicos.TP_1;
+package Practicos.TP_1.clases;
 
 //Ejercicio 23
 public class Constructor {
@@ -14,7 +14,7 @@ public class Constructor {
         return x + y;
     }
 
-    public static void main(String[] args) {
+    public static void sumar(String[] args) {
 
         if(args.length != 2)
             System.out.println("Error: No se ingresaron los parametros correctamente");

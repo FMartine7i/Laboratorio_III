@@ -1,4 +1,4 @@
-package Practicos.TP_1;
+package Practicos.TP_1.clases;
 
 //Ejercicio 24
 public class VariablesPrivadas {
@@ -9,7 +9,7 @@ public class VariablesPrivadas {
         return x + y;
     }
 
-    public static void main(String[] args) {
+    public void sumar(String[] args) {
         VariablesPrivadas obj = new VariablesPrivadas();
         System.out.println(obj.suma());
     }

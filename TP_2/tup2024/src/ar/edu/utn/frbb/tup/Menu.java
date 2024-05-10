@@ -3,6 +3,7 @@ package ar.edu.utn.frbb.tup;
 public class Menu extends BaseInput{
     boolean exit = false;
     GestorClientes gestorClientes = new GestorClientes();
+    GestorCuenta gestorCuenta = new GestorCuenta();
 
     public void renderMenu() {
         do {
@@ -25,7 +26,7 @@ public class Menu extends BaseInput{
                     subMenuAccounts();
                     break;
                 case 3:
-                    subMenuMov();
+
                     break;
                 case 4:
                     exit = true;
@@ -81,26 +82,26 @@ public class Menu extends BaseInput{
         int option;
 
         do{
-            System.out.println("+------------- CUENTA --------------+");
+            System.out.println("\n+------------- CUENTA --------------+");
             System.out.println("| 1. Agregar nueva cuenta           |");
             System.out.println("| 2. Eliminar cuenta                |");
-            System.out.println("| 3. Actualizar datos               |");
-            System.out.println("| 4. Realizar depósito              |");
+            System.out.println("| 3. Ver cuentas asociadas          |");
+            System.out.println("| 4. Realizar transferencia         |");
             System.out.println("| 5. Retirar dinero                 |");
             System.out.println("| 6. Consultar saldo                |");
             System.out.println("| 7. Volver                         |");
-            System.out.println("+-----------------------------------+");
+            System.out.println("+-----------------------------------+\n");
             option = input.nextInt();
 
             switch (option) {
                 case 1:
-                    gestorClientes.agregarCliente();
+                    gestorCuenta.agregarCuenta();
                     break;
                 case 2:
-                    gestorClientes.printClient();
+                    gestorCuenta.eliminarCuenta();
                     break;
                 case 3:
-                    gestorClientes.getClients();
+                    gestorCuenta.verCuentasCliente();
                     break;
                 case 4:
                     gestorClientes.delete();
@@ -108,52 +109,14 @@ public class Menu extends BaseInput{
                 case 5:
                     gestorClientes.actualizarCliente();
                     break;
+                case 6:
+                    break;
                 case 7:
-                    System.out.println("Saliendo del programa...");
+                    System.out.println("Volviendo al menú principal...");
                 default:
                     System.out.print("Opción no válida. Vuelva a ingresar el número [1-6]: ");
             }
         }
-        while (option != 6);
-    }
-
-    public void subMenuMov(){
-        int option;
-
-        do{
-            System.out.println("+------------ HISTORIAL ------------+");
-            System.out.println("| 1. Agregar nueva cuenta           |");
-            System.out.println("| 2. Eliminar cuenta                |");
-            System.out.println("| 3. Actualizar datos               |");
-            System.out.println("| 4. Realizar depósito              |");
-            System.out.println("| 5. Retirar dinero                 |");
-            System.out.println("| 6. Consultar saldo                |");
-            System.out.println("| 7. Volver                         |");
-            System.out.println("+-----------------------------------+");
-            option = input.nextInt();
-
-            switch (option) {
-                case 1:
-                    gestorClientes.agregarCliente();
-                    break;
-                case 2:
-                    gestorClientes.printClient();
-                    break;
-                case 3:
-                    gestorClientes.getClients();
-                    break;
-                case 4:
-                    gestorClientes.delete();
-                    break;
-                case 5:
-                    gestorClientes.actualizarCliente();
-                    break;
-                case 7:
-                    System.out.println("Saliendo del programa...");
-                default:
-                    System.out.print("Opción no válida. Vuelva a ingresar el número [1-6]: ");
-            }
-        }
-        while (option != 6);
+        while (option != 7);
     }
 }

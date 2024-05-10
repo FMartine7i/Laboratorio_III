@@ -1,18 +1,19 @@
 package ar.edu.utn.frbb.tup.utils;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Cuenta {
-    int id;
-    String nombre;
-    LocalDateTime fechaCreacion;
-    int balance;
+    long numeroAsociado;
+    TipoCuenta tipoCuenta;
+    LocalDate fechaCreacion;
+    int saldo;
 
+    public void setNumeroAsociado(long numeroAsociado){ this.numeroAsociado = numeroAsociado; }
+    public void setFechaCreacion(LocalDate fechaCreacion){ this.fechaCreacion = fechaCreacion; }
+    public void setSaldo(int saldo){ this.saldo = saldo; }
+    public void setTipoCuenta(TipoCuenta tipoCuenta){ this.tipoCuenta = tipoCuenta; }
 
-    public void setNombre(String nombre){ this.nombre = nombre; }
-    public void setFechaCreacion(LocalDateTime fechaCreacion){ this.fechaCreacion = fechaCreacion; }
-    public void setBalance( int balance ){ this.balance = balance; }
-
-    public String getNombre(){ return nombre; }
-    public LocalDateTime getFechaCreacion(){ return fechaCreacion; }
-    public int getBalance(){ return balance; }
+    public long getNumeroAsociado(){ return numeroAsociado; }
+    public LocalDate getFechaCreacion(){ return fechaCreacion; }
+    public int getSaldo(){ return saldo; }
+    public TipoCuenta getTipoCuenta(){ return tipoCuenta; }
 }

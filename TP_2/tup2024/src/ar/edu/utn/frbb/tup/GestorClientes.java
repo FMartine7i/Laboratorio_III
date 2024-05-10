@@ -4,15 +4,15 @@ import ar.edu.utn.frbb.tup.utils.TipoPersona;
 import java.util.HashMap;
 import java.util.Map;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class GestorClientes extends BaseInput{
     private int contadorId = 1;
     private Map<String, Cliente> clientesPorId;
 
-    public GestorClientes(){
-        clientesPorId = new HashMap<>();
-    }
+    public GestorClientes(){ clientesPorId = new HashMap<>(); }
+
+    //acceder al mapa desde otras clases
+    public Map<String, Cliente> getClientesMap(){ return clientesPorId; }
 
     public void agregarCliente(){
         System.out.println("Ingresar datos del cliente:");
@@ -22,13 +22,13 @@ public class GestorClientes extends BaseInput{
         String apellido = input.nextLine();
         System.out.print("\nDNI: ");
         long dni = Long.parseLong(input.nextLine());
-        System.out.print("\nFecha de nacimiento [Formato dd/MM/YYYY]: ");
+        System.out.print("\nFecha de nacimiento [Formato YYYY-MM-dd]: ");
         LocalDate fechaDeNacimiento = dateToString(input.nextLine());
         System.out.print("\nPersona [Física(F)- Jurídica(J)]: ");
-        TipoPersona tipoPersona = personaToString();
+        TipoPersona tipoPersona = personaToString(input.nextLine());
         System.out.print("\nBanco: ");
         String banco = input.nextLine();
-        System.out.print("\nFecha de alta [Formato dd/MM/YYYY]: ");
+        System.out.print("\nFecha de alta [Formato YYYY-MM-dd]: ");
         LocalDate fechaDeAlta = dateToString(input.nextLine());
 
         add(nombre, apellido, dni, fechaDeNacimiento, tipoPersona, banco, fechaDeAlta);
@@ -38,18 +38,78 @@ public class GestorClientes extends BaseInput{
     public void actualizarCliente(){
         System.out.print("\nIngrese número de identificación: ");
         int numeroId = input.nextInt();
+        input.nextLine(); // Consume el caracter de nueva línea
         String id = Integer.toString(numeroId);
         Cliente clienteAActualizar = getClientById(id);
 
         if(clienteAActualizar != null) {
-            System.out.println("\nIngresar datos del cliente:");
-            String nombre = confirmarCambioString("el nombre", clienteAActualizar.getNombre());
-            String apellido = confirmarCambioString("el apellido", clienteAActualizar.getApellido());
-            long dni = confirmarCambioDni("el DNI", clienteAActualizar.getDni());
-            LocalDate fechaDeNacimiento = confirmarCambioFecha("fecha de nacimiento", clienteAActualizar.getFechaNacimiento());
-            TipoPersona tipoPersona = confirmarCambioTipo(clienteAActualizar.getTipoPersona());
-            String banco = confirmarCambioString("el banco", clienteAActualizar.getApellido());
-            LocalDate fechaDeAlta = confirmarCambioFecha("fecha de alta", clienteAActualizar.getFechaAlta());
+            String nombre = "";
+            String apellido = "";
+            long dni = 0;
+            LocalDate fechaDeNacimiento = null;
+            TipoPersona tipoPersona = null;
+            String banco = "";
+            LocalDate fechaDeAlta = null;
+            int option;
+
+            do {
+                System.out.println("¿Qué dato desea cambiar?");
+                System.out.println("\n+----------- ACTUALIZAR -----------+");
+                System.out.println("| 1. Nombre                        |");
+                System.out.println("| 2. Apellido                      |");
+                System.out.println("| 3. DNI                           |");
+                System.out.println("| 4. Fecha de Nacimiento           |");
+                System.out.println("| 5. Tipo                          |");
+                System.out.println("| 6. Banco                         |");
+                System.out.println("| 7. Fecha de alta                 |");
+                System.out.println("| 0. Salir                         |");
+                System.out.println("+----------------------------------+\n");
+                option = input.nextInt();
+                input.nextLine();
+
+                switch (option) {
+                    case 1:
+                        System.out.print("Ingrese el nuevo nombre: ");
+                        nombre = input.nextLine();
+                        System.out.println("Nombre modificado con éxito.");
+                        break;
+                    case 2:
+                        System.out.print("Ingrese el nuevo apellido: ");
+                        apellido = input.nextLine();
+                        System.out.println("Apellido modificado con éxito.");
+                        break;
+                    case 3:
+                        System.out.print("Ingrese el nuevo DNI: ");
+                        dni = Long.parseLong(input.nextLine());
+                        System.out.println("DNI modificado con éxito.");
+                        break;
+                    case 4:
+                        System.out.print("Ingrese la nueva fecha de nacimiento [YYYY-MM-dd]: ");
+                        fechaDeNacimiento = dateToString(input.nextLine());
+                        System.out.println("Fecha de nacimiento modificada con éxito.");
+                        break;
+                    case 5:
+                        System.out.print("Ingrese el nuevo tipo [F-J]: ");
+                        tipoPersona = personaToString(input.nextLine());
+                        System.out.println("Tipo de persona modificado con éxito.");
+                        break;
+                    case 6:
+                        System.out.print("Ingrese el nuevo Banco: ");
+                        banco = input.nextLine();
+                        System.out.println("Banco modificado con éxito.");
+                        break;
+                    case 7:
+                        System.out.print("Ingrese la nueva fecha de alta [YYYY-MM-dd]: ");
+                        fechaDeAlta = dateToString(input.nextLine());
+                        System.out.println("Fecha de alta modificada con éxito.");
+                        break;
+                    case 0:
+                        System.out.println("Saliendo de actualización...");
+                        break;
+                    default:
+                        System.out.println("Opción inválida. Seleccione [0-7]");
+                }
+            } while (option != 0);
 
             update(clienteAActualizar, nombre, apellido, dni, fechaDeNacimiento, tipoPersona, banco, fechaDeAlta);
             System.out.println("Cambios guardados correctamente.\n");
@@ -86,7 +146,7 @@ public class GestorClientes extends BaseInput{
                     "\nFecha de nacimiento: " + clienteEncontrado.getFechaNacimiento() +
                     "\nPersona: " + clienteEncontrado.getTipoPersona() +
                     "\nBanco: " + clienteEncontrado.getBanco() +
-                    "\nCuenta asociada: " + clienteEncontrado.getCuenta() +
+                    "\nCuenta asociada: " + clienteEncontrado.getCuentas() +
                     "\nFecha de alta: " + clienteEncontrado.getFechaAlta() +
                     "\n------------------------------\n");
         }
@@ -143,105 +203,20 @@ public class GestorClientes extends BaseInput{
                 return LocalDate.parse(fechaString);
             }
             catch (Exception e) {
-                System.out.println("Formato de fecha inválido. Ingrese la fecha en formato YYYY-MM-DD:");
+                System.out.println("Formato de fecha inválido. Ingrese la fecha en formato YYYY-MM-dd:");
             }
         }
         return null;
     }
 
     //Asigna un tipo de persona y, en caso de que se coloque mal la letra, selecciona persona física por defecto
-    private TipoPersona personaToString(){
-        String tipoPersonaString = input.nextLine().toUpperCase();
+    private TipoPersona personaToString(String tipoPersonaString){
         for (TipoPersona tipoPersona : TipoPersona.values()){
-            if (tipoPersona.getDescripcion().equals(tipoPersonaString)){
+            if (tipoPersona.getDescripcion().equalsIgnoreCase(tipoPersonaString)){
                 return tipoPersona;
             }
         }
         System.out.println("Opción inválida. Se ha seleccionado Persona Física por defecto.");
         return TipoPersona.FISICA;
-    }
-
-    // métodos para confirmar si se desea actualizar
-    private String confirmarCambioString(String mensaje, String valorActual){
-        boolean continuar = true;
-        String option;
-        while (continuar) {
-            System.out.println("¿Desea actualizar " + mensaje + "? [s/N]");
-            option = input.nextLine();
-
-            if (option.equalsIgnoreCase("s")) {
-                System.out.print("Ingrese nuevo dato: ");
-                return input.nextLine();
-            }
-            else if (option.equalsIgnoreCase("n")) {
-                continuar = false;
-                return valorActual;
-            }
-            else {
-                System.out.println("Opción inválida. Seleccione [s/N]");
-            }
-        }
-        return valorActual;
-    }
-
-    private long confirmarCambioDni(String mensaje, long valorActual){
-        boolean continuar = true;
-        String option;
-        while (continuar) {
-            System.out.println("¿Desea actualizar " + mensaje + "? [s/N]");
-            option = input.nextLine();
-
-            if (option.equalsIgnoreCase("s")) {
-                System.out.print("Ingrese nuevo dato: ");
-                return Long.parseLong(input.nextLine());
-            }
-            else if (option.equalsIgnoreCase("n"))
-                continuar = false;
-            else {
-                System.out.println("Opción inválida. Seleccione [s/N]");
-            }
-        }
-        return valorActual;
-    }
-
-    private LocalDate confirmarCambioFecha(String mensaje, LocalDate valorActual){
-        boolean continuar = true;
-        String option;
-        while (continuar) {
-            System.out.println("¿Desea actualizar " + mensaje + " [s/N]");
-            option = input.nextLine();
-
-            if (option.equalsIgnoreCase("s")) {
-                System.out.print("Ingrese nuevo dato: ");
-                dateToString(input.nextLine());
-                continuar = false;
-            }
-            else if (option.equalsIgnoreCase("n"))
-                continuar = false;
-            else {
-                System.out.println("Opción inválida. Seleccione [s/N]");
-            }
-        }
-        return valorActual;
-    }
-
-    private TipoPersona confirmarCambioTipo(TipoPersona valorActual){
-        boolean continuar = true;
-        String option;
-        while (continuar) {
-            System.out.println("¿Desea actualizar el tipo? [s/N]");
-            option = input.nextLine();
-
-            if (option.equalsIgnoreCase("s")) {
-                System.out.print("Ingrese nuevo dato: ");
-                return personaToString();
-            }
-            else if (option.equalsIgnoreCase("n"))
-                continuar = false;
-            else {
-                System.out.println("Opción inválida. Seleccione [s/N]");
-            }
-        }
-        return valorActual;
     }
 }

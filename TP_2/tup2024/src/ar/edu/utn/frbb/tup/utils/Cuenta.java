@@ -2,9 +2,11 @@ package ar.edu.utn.frbb.tup.utils;
 import java.time.LocalDateTime;
 
 public class Cuenta {
+    int id;
     String nombre;
     LocalDateTime fechaCreacion;
     int balance;
+
 
     public void setNombre(String nombre){ this.nombre = nombre; }
     public void setFechaCreacion(LocalDateTime fechaCreacion){ this.fechaCreacion = fechaCreacion; }

@@ -7,4 +7,6 @@ public enum TipoPersona {
     TipoPersona(String descripcion){
         this.descripcion = descripcion;
     }
+
+    public String getDescripcion(){ return descripcion; }
 }

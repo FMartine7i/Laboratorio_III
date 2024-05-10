@@ -3,6 +3,7 @@ import ar.edu.utn.frbb.tup.utils.Cuenta;
 import ar.edu.utn.frbb.tup.utils.TipoCuenta;
 import ar.edu.utn.frbb.tup.utils.Cliente;
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Map;
 
 public class GestorCuenta extends BaseInput{
@@ -18,9 +19,18 @@ public class GestorCuenta extends BaseInput{
         Cliente cliente = clientesMap.get(id);
 
         if (cliente != null){
-            System.out.println("\nCuenta/s del cliente:");
-            System.out.print(cliente.getCuentas());
+            System.out.println("\nCuenta/s del cliente: " + cliente.getNombre() + " " + cliente.getApellido());
+            for (Cuenta cuenta : cliente.getCuentas()){
+                System.out.println("+-----------------------------------+");
+                System.out.println("Cuenta número " + cuenta.getNumeroAsociado());
+                System.out.println("Fecha de creación: " + cuenta.getFechaCreacion());
+                System.out.println("Tipo: " + cuenta.getTipoCuenta());
+                System.out.println("Saldo disponible: $" + cuenta.getSaldo());
+                System.out.println("+-----------------------------------+\n");
+            }
         }
+        else
+            System.out.println("Error: cliente no encontrado.");
     }
 
     public void agregarCuenta(){
@@ -39,8 +49,9 @@ public class GestorCuenta extends BaseInput{
             TipoCuenta tipoCuenta = cuentaToString(input.nextLine());
             System.out.print("\nFecha de creación [Formato YYYY-MM-dd]: ");
             LocalDate fechaCreacion = dateToString(input.nextLine());
-            input.nextLine(); //limpiar buffer de entrada
+            System.out.print("\nSaldo: ");
             int saldo = input.nextInt();
+            input.nextLine();
 
             add(cliente, numeroAsociado, tipoCuenta, fechaCreacion, saldo);
             System.out.println("Cuenta agregada con éxito.");
@@ -61,7 +72,6 @@ public class GestorCuenta extends BaseInput{
     public void eliminarCuenta(){
         System.out.print("\nIngrese la ID del cliente:");
         String id = input.nextLine();
-        GestorClientes gestorClientes = new GestorClientes();
         Map<String, Cliente> clientes = gestorClientes.getClientesMap();
         Cliente cliente = clientes.get(id);
 

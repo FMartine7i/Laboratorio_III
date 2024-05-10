@@ -6,9 +6,12 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public class GestorCuenta extends BaseInput{
+    private GestorClientes gestorClientes;  //referencia a GestorClientes para no perder valores cuando lo inicializo
 
+    public GestorCuenta(GestorClientes gestorClientes){
+        this.gestorClientes = gestorClientes;
+    }
     public void verCuentasCliente(){
-        GestorClientes gestorClientes = new GestorClientes();
         System.out.print("\nIngrese número de identificación:");
         String id = input.nextLine();
         Map<String, Cliente> clientesMap = gestorClientes.getClientesMap();
@@ -21,37 +24,38 @@ public class GestorCuenta extends BaseInput{
     }
 
     public void agregarCuenta(){
+        System.out.print("clientes existentes: " + gestorClientes.getClientesMap());
         System.out.println("Ingresar datos de la cuenta:");
         System.out.println("ID del cliente asociado: ");
         String id = input.nextLine();
-        System.out.print("\nNúmero de cuenta: ");
-        long numeroAsociado = Long.parseLong(input.nextLine());
-        System.out.print("\nApellido: ");
-        TipoCuenta tipoCuenta = cuentaToString(input.nextLine());
-        System.out.print("\nFecha de creación [Formato YYYY-MM-dd]: ");
-        LocalDate fechaCreacion = dateToString(input.nextLine());
-        int saldo = input.nextInt();
-
-        add(id, numeroAsociado, tipoCuenta, fechaCreacion, saldo);
-    }
-
-    public void add(String id, long numeroAsociado, TipoCuenta tipoCuenta, LocalDate fechaCreacion, int saldo){
-        GestorClientes gestorClientes = new GestorClientes();
         Map<String, Cliente> clientesMap = gestorClientes.getClientesMap();
         Cliente cliente = clientesMap.get(id);
 
         if (cliente != null) {
-            Cuenta cuenta = new Cuenta();
-            cuenta.setNumeroAsociado(numeroAsociado);
-            cuenta.setTipoCuenta(tipoCuenta);
-            cuenta.setFechaCreacion(fechaCreacion);
-            cuenta.setSaldo(saldo);
-            cliente.agregar(cuenta);
+            System.out.println("\nAdministrador de cuentas del cliente " + cliente.getNombre() + " " + cliente.getApellido());
+            System.out.print("\nNúmero de cuenta: ");
+            long numeroAsociado = Long.parseLong(input.nextLine());
+            System.out.print("\nTipo de cuenta [Ahorro(A) - Corriente(C)]: ");
+            TipoCuenta tipoCuenta = cuentaToString(input.nextLine());
+            System.out.print("\nFecha de creación [Formato YYYY-MM-dd]: ");
+            LocalDate fechaCreacion = dateToString(input.nextLine());
+            input.nextLine(); //limpiar buffer de entrada
+            int saldo = input.nextInt();
 
-            System.out.println("Cuenta agregada con éxito al cliente " + cliente.getNombre() + cliente.getApellido());
+            add(cliente, numeroAsociado, tipoCuenta, fechaCreacion, saldo);
+            System.out.println("Cuenta agregada con éxito.");
         }
         else
             System.out.println("Error: cliente " + id + " no encontrado.");
+    }
+
+    public void add(Cliente cliente, long numeroAsociado, TipoCuenta tipoCuenta, LocalDate fechaCreacion, int saldo){
+        Cuenta cuenta = new Cuenta();
+        cuenta.setNumeroAsociado(numeroAsociado);
+        cuenta.setTipoCuenta(tipoCuenta);
+        cuenta.setFechaCreacion(fechaCreacion);
+        cuenta.setSaldo(saldo);
+        cliente.agregar(cuenta);
     }
 
     public void eliminarCuenta(){

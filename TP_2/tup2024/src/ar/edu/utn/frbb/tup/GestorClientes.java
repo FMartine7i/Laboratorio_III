@@ -14,6 +14,42 @@ public class GestorClientes extends BaseInput{
     //acceder al mapa desde otras clases
     public Map<String, Cliente> getClientesMap(){ return clientesPorId; }
 
+    public Cliente getClientById(String id){
+        return clientesPorId.get(id);
+    }
+
+    public void getClients(){
+        System.out.println("\nLista de clientes:");
+        for (Cliente cliente : clientesPorId.values()) {
+            System.out.println("ID: " + cliente.getId());
+            System.out.println("Nombre: " + cliente.getNombre());
+            System.out.println("Apellido: " + cliente.getApellido());
+            System.out.println("---------------------------\n");
+        }
+    }
+
+    public void printClient(){
+        System.out.println("Ingrese un número de identificación: ");
+        int numeroId = input.nextInt();
+        String id = Integer.toString(numeroId);
+        Cliente clienteEncontrado = getClientById(id);
+
+        if (clienteEncontrado != null){
+            System.out.println("\n------------- CLIENTE ---------------" +
+                    "\nNombre: " + clienteEncontrado.getNombre() +
+                    "\nApellido: " + clienteEncontrado.getApellido() +
+                    "\nDNI: " + clienteEncontrado.getDni() +
+                    "\nFecha de nacimiento: " + clienteEncontrado.getFechaNacimiento() +
+                    "\nPersona: " + clienteEncontrado.getTipoPersona() +
+                    "\nBanco: " + clienteEncontrado.getBanco() +
+                    "\nCuenta asociada: " + clienteEncontrado.getCuentas() +
+                    "\nFecha de alta: " + clienteEncontrado.getFechaAlta() +
+                    "\n------------------------------\n");
+        }
+        else
+            System.out.println("No se ha encontrado el usuario con la ID " + id +"\n");
+    }
+
     public void agregarCliente(){
         System.out.println("Ingresar datos del cliente:");
         System.out.print("Nombre: ");
@@ -113,42 +149,6 @@ public class GestorClientes extends BaseInput{
 
             update(clienteAActualizar, nombre, apellido, dni, fechaDeNacimiento, tipoPersona, banco, fechaDeAlta);
             System.out.println("Cambios guardados correctamente.\n");
-        }
-        else
-            System.out.println("No se ha encontrado el usuario con la ID " + id +"\n");
-    }
-
-    public Cliente getClientById(String id){
-        return clientesPorId.get(id);
-    }
-
-    public void getClients(){
-        System.out.println("\nLista de clientes:");
-        for (Cliente cliente : clientesPorId.values()) {
-            System.out.println("ID: " + cliente.getId());
-            System.out.println("Nombre: " + cliente.getNombre());
-            System.out.println("Apellido: " + cliente.getApellido());
-            System.out.println("---------------------------\n");
-        }
-    }
-
-    public void printClient(){
-        System.out.println("Ingrese un número de identificación: ");
-        int numeroId = input.nextInt();
-        String id = Integer.toString(numeroId);
-        Cliente clienteEncontrado = getClientById(id);
-
-        if (clienteEncontrado != null){
-            System.out.println("\n------------- CLIENTE ---------------" +
-                    "\nNombre: " + clienteEncontrado.getNombre() +
-                    "\nApellido: " + clienteEncontrado.getApellido() +
-                    "\nDNI: " + clienteEncontrado.getDni() +
-                    "\nFecha de nacimiento: " + clienteEncontrado.getFechaNacimiento() +
-                    "\nPersona: " + clienteEncontrado.getTipoPersona() +
-                    "\nBanco: " + clienteEncontrado.getBanco() +
-                    "\nCuenta asociada: " + clienteEncontrado.getCuentas() +
-                    "\nFecha de alta: " + clienteEncontrado.getFechaAlta() +
-                    "\n------------------------------\n");
         }
         else
             System.out.println("No se ha encontrado el usuario con la ID " + id +"\n");

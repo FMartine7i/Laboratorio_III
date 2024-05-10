@@ -3,7 +3,7 @@ package ar.edu.utn.frbb.tup;
 public class Menu extends BaseInput{
     boolean exit = false;
     GestorClientes gestorClientes = new GestorClientes();
-    GestorCuenta gestorCuenta = new GestorCuenta();
+    GestorCuenta gestorCuenta = new GestorCuenta(gestorClientes);
 
     public void renderMenu() {
         do {

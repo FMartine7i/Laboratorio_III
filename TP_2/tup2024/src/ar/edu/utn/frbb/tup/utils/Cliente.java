@@ -3,7 +3,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Cliente extends  Persona{
+public class Cliente extends Persona{
     private int id;
     private TipoPersona tipoPersona;
     private String banco;

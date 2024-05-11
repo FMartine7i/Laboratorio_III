@@ -19,7 +19,7 @@ public class GestorClientes extends BaseInput{
     }
 
     public void getClients(){
-        System.out.println("\nLista de clientes:");
+        System.out.println("\nLista de clientes:\n");
         for (Cliente cliente : clientesPorId.values()) {
             System.out.println("ID: " + cliente.getId());
             System.out.println("Nombre: " + cliente.getNombre());
@@ -44,14 +44,14 @@ public class GestorClientes extends BaseInput{
                     "\nBanco: " + clienteEncontrado.getBanco() +
                     "\nCuenta asociada: " + clienteEncontrado.getCuentas() +
                     "\nFecha de alta: " + clienteEncontrado.getFechaAlta() +
-                    "\n------------------------------\n");
+                    "\n----------------------------------\n");
         }
         else
             System.out.println("No se ha encontrado el usuario con la ID " + id +"\n");
     }
 
     public void agregarCliente(){
-        System.out.println("Ingresar datos del cliente:");
+        System.out.println("Ingresar datos del cliente:\n");
         System.out.print("Nombre: ");
         String nombre = input.nextLine();
         System.out.print("\nApellido: ");
@@ -67,8 +67,9 @@ public class GestorClientes extends BaseInput{
         System.out.print("\nFecha de alta [Formato YYYY-MM-dd]: ");
         LocalDate fechaDeAlta = dateToString(input.nextLine());
 
-        add(nombre, apellido, dni, fechaDeNacimiento, tipoPersona, banco, fechaDeAlta);
-        System.out.println("\nCliente creado con éxito.\n");
+        int clienteAgregado = add(nombre, apellido, dni, fechaDeNacimiento, tipoPersona, banco, fechaDeAlta);
+        System.out.println("\nCliente creado con éxito.");
+        System.out.println("ID anexada: " + clienteAgregado + "\n");
     }
 
     public void actualizarCliente(){
@@ -154,7 +155,7 @@ public class GestorClientes extends BaseInput{
             System.out.println("No se ha encontrado el usuario con la ID " + id +"\n");
     }
 
-    public void add(String nombre, String apellido, long dni, LocalDate fechaDeNacimiento, TipoPersona tipoPersona, String banco, LocalDate fechaAlta){
+    public int add(String nombre, String apellido, long dni, LocalDate fechaDeNacimiento, TipoPersona tipoPersona, String banco, LocalDate fechaAlta){
         Cliente cliente = new Cliente();
         String id = Integer.toString(contadorId);   //convierto la id a String para poder trabajar con Map
         cliente.setId(contadorId);
@@ -167,6 +168,7 @@ public class GestorClientes extends BaseInput{
         cliente.setFechaAlta(fechaAlta);
         clientesPorId.put(id, cliente);
         contadorId++;   //El id es autoincremental
+        return cliente.getId();
     }
 
     public void delete(){

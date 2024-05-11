@@ -3,7 +3,6 @@ import ar.edu.utn.frbb.tup.utils.Cuenta;
 import ar.edu.utn.frbb.tup.utils.TipoCuenta;
 import ar.edu.utn.frbb.tup.utils.Cliente;
 import java.time.LocalDate;
-import java.util.InputMismatchException;
 import java.util.Map;
 
 public class GestorCuenta extends BaseInput{
@@ -34,9 +33,8 @@ public class GestorCuenta extends BaseInput{
     }
 
     public void agregarCuenta(){
-        System.out.print("clientes existentes: " + gestorClientes.getClientesMap());
-        System.out.println("Ingresar datos de la cuenta:");
-        System.out.println("ID del cliente asociado: ");
+        System.out.println("Ingresar datos de la cuenta:\n");
+        System.out.print("ID del cliente asociado: ");
         String id = input.nextLine();
         Map<String, Cliente> clientesMap = gestorClientes.getClientesMap();
         Cliente cliente = clientesMap.get(id);
@@ -54,7 +52,7 @@ public class GestorCuenta extends BaseInput{
             input.nextLine();
 
             add(cliente, numeroAsociado, tipoCuenta, fechaCreacion, saldo);
-            System.out.println("Cuenta agregada con éxito.");
+            System.out.println("\nCuenta agregada con éxito.");
         }
         else
             System.out.println("Error: cliente " + id + " no encontrado.");

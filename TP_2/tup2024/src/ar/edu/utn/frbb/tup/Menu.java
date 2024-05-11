@@ -11,8 +11,7 @@ public class Menu extends BaseInput{
             System.out.println("\n+--------------- BANCO ---------------+");
             System.out.println("| 1. Clientes                         |");
             System.out.println("| 2. Cuenta                           |");
-            System.out.println("| 3. Historial de movimientos         |");
-            System.out.println("| 4. Salir                            |");
+            System.out.println("| 3. Salir                            |");
             System.out.println("| -  Ingrese una opción [1-4]         |");
             System.out.println("+-------------------------------------+\n");
 
@@ -27,9 +26,6 @@ public class Menu extends BaseInput{
                     subMenuAccounts();
                     break;
                 case 3:
-
-                    break;
-                case 4:
                     exit = true;
                     System.out.println("Saliendo del programa...");
                     break;
@@ -70,7 +66,7 @@ public class Menu extends BaseInput{
                     gestorClientes.actualizarCliente();
                     break;
                 case 6:
-                    System.out.println("Saliendo del programa...");
+                    System.out.println("Volviendo al menú principal...");
                     break;
                 default:
                     System.out.print("Opción no válida. Vuelva a ingresar el número [1-6]: ");

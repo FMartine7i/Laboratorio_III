@@ -10,3 +10,9 @@
 
 # Ignorar carpeta out
 out/
+
+#Ignorar carpeta target
+target/
+
+#Ignorar carpeta test
+test/

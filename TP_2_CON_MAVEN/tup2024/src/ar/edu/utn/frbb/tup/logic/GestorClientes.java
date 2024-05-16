@@ -1,10 +1,12 @@
-import utils.Cliente;
-import utils.TipoPersona;
+package logic;
+
+import model.Cliente;
+import model.TipoPersona;
 import java.util.HashMap;
 import java.util.Map;
 import java.time.LocalDate;
 
-public class GestorClientes extends BaseInput{
+public class GestorClientes extends BaseInput {
     private int contadorId = 1;
     private Map<String, Cliente> clientesPorId;
 

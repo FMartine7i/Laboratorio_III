@@ -1,10 +1,10 @@
-package utils;
+package model;
 
-public enum TipoCuenta {
-    CORRIENTE("C"), AHORROS("A");
+public enum TipoPersona {
+    FISICA("F"), JURIDICA("J");
     private final String descripcion;
 
-    TipoCuenta(String descripcion){
+    TipoPersona(String descripcion){
         this.descripcion = descripcion;
     }
 

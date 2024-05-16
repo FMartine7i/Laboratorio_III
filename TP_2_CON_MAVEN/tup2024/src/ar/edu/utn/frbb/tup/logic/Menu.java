@@ -1,4 +1,6 @@
-public class Menu extends BaseInput{
+package logic;
+
+public class Menu extends BaseInput {
     boolean exit = false;
     GestorClientes gestorClientes = new GestorClientes();
     GestorCuentas gestorCuentas = new GestorCuentas(gestorClientes);

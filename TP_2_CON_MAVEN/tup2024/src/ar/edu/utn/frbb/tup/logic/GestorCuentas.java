@@ -1,11 +1,13 @@
-import utils.Cuenta;
-import utils.TipoCuenta;
-import utils.Cliente;
+package logic;
+
+import model.Cuenta;
+import model.TipoCuenta;
+import model.Cliente;
 import java.time.LocalDate;
 import java.util.Map;
 
-public class GestorCuentas extends BaseInput{
-    private GestorClientes gestorClientes;  //referencia a GestorClientes para no perder valores cuando lo inicializo
+public class GestorCuentas extends BaseInput {
+    private GestorClientes gestorClientes;  //referencia a logic.GestorClientes para no perder valores cuando lo inicializo
 
     public GestorCuentas(GestorClientes gestorClientes){
         this.gestorClientes = gestorClientes;

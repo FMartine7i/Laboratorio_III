@@ -1,13 +1,15 @@
-import utils.Cliente;
-import utils.Cuenta;
-import utils.TipoMovimiento;
+package logic;
+
+import model.Cliente;
+import model.Cuenta;
+import model.TipoMovimiento;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class GestorMovimientos extends BaseInput{
+public class GestorMovimientos extends BaseInput {
     private LocalDateTime fechaHora;
     private int monto;
     private TipoMovimiento tipoMovimiento;

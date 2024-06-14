@@ -14,5 +14,5 @@ out/
 #Ignorar carpeta target
 target/
 
-#Ignorar carpeta test
-test/
+#Ignorar AppTest.java
+AppTest.java

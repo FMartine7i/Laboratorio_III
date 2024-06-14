@@ -9,7 +9,7 @@ import ar.edu.utn.frbb.tup.model.exception.CuentaNoSoportadaException;
 import ar.edu.utn.frbb.tup.model.exception.TipoCuentaAlreadyExistsException;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,20 +32,19 @@ public class CuentaServiceTest {
     private ClienteDao clienteDao;
 
     @Mock
-    private Cliente cliente;
-
-    @Mock
     private ClienteService clienteService;
 
     @InjectMocks
     private CuentaService cuentaService;
 
-    @BeforeAll
+    private Cliente cliente;
+
+    @BeforeEach
     public void setUp() {
+        MockitoAnnotations.openMocks(this);
         cliente = new Cliente();
         cliente.setDni(1234567);
         cliente.setNombre("Peperino");
-        MockitoAnnotations.openMocks(this);
     }
 
     /**
@@ -84,21 +83,17 @@ public class CuentaServiceTest {
      */
     @Test
     public void testTipoCuentaDuplicado() throws TipoCuentaAlreadyExistsException {
-        ClienteService clienteService = new ClienteService(clienteDao);
         Cuenta cuenta = new Cuenta().setMoneda(TipoMoneda.PESOS).setBalance(500000).setTipoCuenta(TipoCuenta.CAJA_AHORRO);
-        cuenta.setNumeroCuenta(123);
-
-        final int dni = 2345678;
-        Cliente cliente = new Cliente();
-        cliente.setDni(dni);
+        cuenta.setNumeroCuenta(124);
         cliente.addCuenta(cuenta);
 
-        when(clienteDao.find(dni, true)).thenReturn(cliente);
-        assertThrows(TipoCuentaAlreadyExistsException.class, ()-> clienteService.agregarCuenta(cuenta, dni));
+        when(cuentaDao.find(cuenta.getNumeroCuenta())).thenReturn(null);
+        doThrow(TipoCuentaAlreadyExistsException.class).when(clienteService).agregarCuenta(cuenta, cliente.getDni());
+        assertThrows(TipoCuentaAlreadyExistsException.class, ()-> cuentaService.darDeAltaCuenta(cuenta, cliente.getDni()));
     }
 
     /**
-     * Quiero probar que, al ingresar
+     * Quiero probar que, al ingresar una cuenta con todas sus características, podrá ser guardada con éxito
      * @throws CuentaAlreadyExistsException
      * @throws TipoCuentaAlreadyExistsException
      * @throws CuentaNoSoportadaException
